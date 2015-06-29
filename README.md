@@ -1,1 +1,1 @@
-# WDS-Default-Featured-Images
+# WDS Default Featured Images
