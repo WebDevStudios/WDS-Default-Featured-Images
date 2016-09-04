@@ -84,14 +84,14 @@ class WDS_Get_Default_Featured_Image {
 
 		$this->image_size = $image_size;
 
-		$size = $this->get_image_sizes( $this->image_size );
-		$this->width = $size['width'];
+		$size         = $this->get_image_sizes( $this->image_size );
+		$this->width  = $size['width'];
 		$this->height = $size['height'];
 
-		$this->site = isset( $option['site'] ) ? $option['site'] : '';
+		$this->site     = isset( $option['site'] ) ? $option['site'] : '';
 		$this->image_id = isset( $option['image_id'] ) ? $option['image_id'] : 0;
 
-		$this->url = $this->get_url();
+		$this->url  = $this->get_url();
 		$this->html = $this->get_html();
 
 	}
@@ -129,7 +129,7 @@ class WDS_Get_Default_Featured_Image {
 
 			$html = '';
 			if ( $url ) {
-				$hwstring = image_hwstring($this->width, $this->height);
+				$hwstring   = image_hwstring( $this->width, $this->height );
 				$size_class = $this->image_size;
 				if ( is_array( $size_class ) ) {
 					$size_class = join( 'x', $size_class );
