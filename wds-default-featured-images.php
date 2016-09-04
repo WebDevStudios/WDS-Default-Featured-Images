@@ -35,78 +35,80 @@
  */
 
 /**
- * Main initiation class
+ * Main initiation class.
  *
  * @since  1.0.0
- * @var  string $version  Plugin version
- * @var  string $basename Plugin basename
- * @var  string $url      Plugin URL
- * @var  string $path     Plugin Path
  */
 class WDS_Default_Featured_Images {
 
 	/**
-	 * Current version
+	 * Current version.
 	 *
-	 * @var  string
-	 * @since  1.0.0
+	 * @var string
+	 * @since 1.0.0
 	 */
 	const VERSION = '1.0.0';
 
 	/**
-	 * URL of plugin directory
+	 * URL of plugin directory.
 	 *
 	 * @var string
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 */
 	protected $url      = '';
 
 	/**
-	 * Path of plugin directory
+	 * Path of plugin directory.
 	 *
 	 * @var string
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 */
 	protected $path     = '';
 
 	/**
-	 * Plugin basename
+	 * Plugin basename.
 	 *
 	 * @var string
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 */
 	protected $basename = '';
 
 	/**
-	 * Singleton instance of plugin
+	 * Singleton instance of plugin.
 	 *
 	 * @var WDS_Default_Featured_Images
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 */
 	protected static $single_instance = null;
 
 	/**
-	 * Option key, and option page slug
+	 * Option key, and option page slug.
+	 *
 	 * @var string
+	 * @since 1.0.0
 	 */
 	private $key = 'wds_default_featured_images';
 
 	/**
-	 * Options page metabox id
+	 * Options page metabox id.
+	 *
 	 * @var string
+	 * @since 1.0.0
 	 */
 	private $metabox_id = 'wds_default_featured_images_mb';
 
 	/**
-	 * Options Page hook
+	 * Options Page hook.
+	 *
 	 * @var string
+	 * @since 1.0.0
 	 */
 	protected $options_page = '';
 
 	/**
 	 * Creates or returns an instance of this class.
 	 *
-	 * @since  1.0.0
+	 * @since 1.0.0
 	 * @return WDS_Default_Featured_Images A single instance of this class.
 	 */
 	public static function get_instance() {
@@ -118,10 +120,9 @@ class WDS_Default_Featured_Images {
 	}
 
 	/**
-	 * Sets up our plugin
+	 * Sets up our plugin.
 	 *
-	 * @since  1.0.0
-	 * @return  null
+	 * @since 1.0.0
 	 */
 	protected function __construct() {
 		$this->basename = plugin_basename( __FILE__ );
@@ -132,16 +133,20 @@ class WDS_Default_Featured_Images {
 		$this->hooks();
 	}
 
+	/**
+	 * Load our required file.
+	 *
+	 * @since 1.0.0
+	 */
 	public function includes() {
 		require_once( $this->path . 'includes/class-wds-get-default-featured-image.php' );
 		require_once( $this->path . 'includes/helper-functions.php' );
 	}
 
 	/**
-	 * Add hooks and filters
+	 * Add hooks and filters.
 	 *
 	 * @since 1.0.0
-	 * @return null
 	 */
 	public function hooks() {
 		add_action( 'init', array( $this, 'init' ) );
@@ -152,35 +157,40 @@ class WDS_Default_Featured_Images {
 	}
 
 	/**
-	 * Init hooks
+	 * Init hooks.
 	 *
-	 * @since  1.0.0
-	 * @return null
+	 * @since 1.0.0
 	 */
 	public function init() {
 		load_plugin_textdomain( 'wds-default-featured-images', false, dirname( $this->basename ) . '/languages/' );
 	}
 
 	/**
-	 * Register our settings on admin_init
+	 * Register our settings on admin_init.
+	 *
+	 * @since 1.0.0
 	 */
 	public function admin_init() {
 		register_setting( $this->key, $this->key );
 	}
 
 	/**
-	 * Add the options page for our settings
+	 * Add the options page for our settings.
+	 *
+	 * @since 1.0.0
 	 */
 	public function add_options_page() {
 
 		$this->options_page = add_options_page( __( 'Default Featured Image', 'wds-default-featured-images' ), __( 'Default Featured Image', 'wds-default-featured-images' ), 'manage_options', $this->key, array( $this, 'admin_page_display' ) );
-		// Include CMB CSS in the head to avoid FOUT
+		// Include CMB CSS in the head to avoid FOUT.
 		add_action( "admin_print_styles-{$this->options_page}", array( 'CMB2_hookup', 'enqueue_cmb_css' ) );
 
 	}
 
 	/**
-	 * Markup to display on our options page
+	 * Markup to display on our options page.
+	 *
+	 * @since 1.0.0
 	 */
 	public function admin_page_display() {
 		?>
@@ -192,7 +202,9 @@ class WDS_Default_Featured_Images {
 	}
 
 	/**
-	 * Add CMB2 Metaboxes
+	 * Add CMB2 Metaboxes.
+	 *
+	 * @since 1.0.0
 	 */
 	function add_options_page_metabox() {
 		$cmb = new_cmb2_box( array(
@@ -203,7 +215,7 @@ class WDS_Default_Featured_Images {
 				'value' => array( $this->key, )
 			),
 		) );
-		// Set our CMB2 fields
+
 		$cmb->add_field( array(
 			'name' => __( 'Select Default Image', 'wds-default-featured-images' ),
 			'id'   => 'image',
@@ -227,11 +239,20 @@ class WDS_Default_Featured_Images {
 				'placecage'   => __( 'PlaceCage', 'wds-default-featured-images' ),
 			),
 		) );
-		
+
 	}
 
 	/**
 	 * Hook in and add images for nonexistant post thumbnails.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $html              Default HTML.
+	 * @param int    $post_id           Post ID.
+	 * @param int    $post_thumbnail_id Post attachment ID.
+	 * @param string $size              Image size keyword.
+	 * @param string $attr              Query string of attributes.
+	 * @return string
 	 */
 	public function post_thumbnail( $html, $post_id, $post_thumbnail_id, $size, $attr ) {
 
@@ -251,14 +272,16 @@ class WDS_Default_Featured_Images {
 
 /**
  * Grab the WDS_Default_Featured_Images object and return it.
+ *
  * Wrapper for WDS_Default_Featured_Images::get_instance()
  *
- * @since  1.0.0
- * @return WDS_Default_Featured_Images  Singleton instance of plugin class.
+ * @since 1.0.0
+ *
+ * @return WDS_Default_Featured_Images Singleton instance of plugin class.
  */
 function wds_default_featured_images() {
 	return WDS_Default_Featured_Images::get_instance();
 }
 
-// Kick it off
+// Kick it off.
 wds_default_featured_images();

@@ -1,24 +1,83 @@
 <?php
 
+/**
+ * Class WDS_Get_Default_Featured_Image
+ *
+ * @since 1.0.0
+ */
 class WDS_Get_Default_Featured_Image {
 
+	/**
+	 * Image size.
+	 *
+	 * @var string
+	 * @since 1.0.0
+	 */
 	public $image_size = '';
 
+	/**
+	 * Post ID.
+	 *
+	 * @var int
+	 * @since 1.0.0
+	 */
 	public $post_id = 0;
 
+	/**
+	 * Image width, in pixels.
+	 *
+	 * @var int|mixed
+	 * @since 1.0.0
+	 */
 	public $width = 0;
 
+	/**
+	 * Image height, in pixels.
+	 *
+	 * @var int|mixed
+	 * @since 1.0.0
+	 */
 	public $height = 0;
 
+	/**
+	 * Site property.
+	 *
+	 * @var string
+	 * @since 1.0.0
+	 */
 	public $site = '';
 
+	/**
+	 * Image ID.
+	 *
+	 * @var int
+	 * @since 1.0.0
+	 */
 	public $image_id = 0;
 
+	/**
+	 * Image URL.
+	 *
+	 * @var string
+	 * @since 1.0.0
+	 */
 	public $url = '';
 
+	/**
+	 * HTML output.
+	 *
+	 * @var string
+	 * @since 1.0.0
+	 */
 	public $html = '';
 
-
+	/**
+	 * WDS_Get_Default_Featured_Image constructor.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $image_size Image size to retrieve.
+	 */
 	public function __construct( $image_size = 'thumbnail' ) {
 
 		$option = get_option( 'wds_default_featured_images' );
@@ -37,6 +96,13 @@ class WDS_Get_Default_Featured_Image {
 
 	}
 
+	/**
+	 * Return the image URL.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
 	public function get_url() {
 
 		if ( ! $this->image_id ) {
@@ -48,6 +114,13 @@ class WDS_Get_Default_Featured_Image {
 
 	}
 
+	/**
+	 * Return the image HTML.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string
+	 */
 	public function get_html() {
 
 		if ( ! $this->image_id ) {
@@ -63,9 +136,9 @@ class WDS_Get_Default_Featured_Image {
 				}
 
 				$attr = array(
-					'src'	=> esc_url( $url ),
-					'class'	=> "attachment-$size_class",
-					'alt'	=> __( 'This is just a placeholder image', 'wds-default-featured-images' ), // Use Alt field first
+					'src'   => esc_url( $url ),
+					'class' => "attachment-$size_class",
+					'alt'   => __( 'This is just a placeholder image', 'wds-default-featured-images' ),
 				);
 
 				/**
@@ -94,12 +167,27 @@ class WDS_Get_Default_Featured_Image {
 
 	}
 
+	/**
+	 * Return the URL for the default placeholder.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $site   Default placeholder site name.
+	 * @param int    $width  Default width in pixels.
+	 * @param int    $height Default height in pixels.
+	 * @return string
+	 */
 	public function get_placeholder_site_url( $site = 'placeholdit', $width = 150, $height = 150 ) {
 		return get_stylesheet_directory_uri() . '/images/placeholder.png';
 	}
 
 	/**
 	 * Return image sizes including height and width.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $size Thumbnail size.
+	 * @return array $sizes Array of sizes.
 	 */
 	function get_image_sizes( $size = '' ) {
 
@@ -108,7 +196,7 @@ class WDS_Get_Default_Featured_Image {
 		$sizes = array();
 		$get_intermediate_image_sizes = get_intermediate_image_sizes();
 
-		// Create the full array with sizes and crop info
+		// Create the full array with sizes and crop info.
 		foreach( $get_intermediate_image_sizes as $_size ) {
 
 			if ( in_array( $_size, array( 'thumbnail', 'medium', 'large' ) ) ) {
@@ -129,7 +217,7 @@ class WDS_Get_Default_Featured_Image {
 
 		}
 
-		// Get only 1 size if found
+		// Get only 1 size if found.
 		if ( $size ) {
 
 			if( isset( $sizes[ $size ] ) ) {
