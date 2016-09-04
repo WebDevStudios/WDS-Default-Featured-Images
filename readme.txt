@@ -15,6 +15,8 @@ Allows you to select a default image as all featured images where none is set.
 
 == Installation ==
 
+You know how.
+
 = Manual Installation =
 
 1. Upload the entire `/wds-default-featured-images` directory to the `/wp-content/plugins/` directory.
