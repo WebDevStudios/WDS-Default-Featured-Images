@@ -1,14 +1,14 @@
 <?php
 /**
-* Plugin Name: WDS Default Featured Images
-* Plugin URI:  http://webdevstudios.com
-* Description: Allows you to select a default image as all featured images where none is set.
-* Version:     1.0.0
-* Author:      WebDevStudios
-* Author URI:  http://webdevstudios.com
-* Donate link: http://webdevstudios.com
-* License:     GPLv2
-* Text Domain: wds-default-featured-images
+ * Plugin Name: WDS Default Featured Images
+ * Plugin URI:  http://webdevstudios.com
+ * Description: Allows you to select a default image as all featured images where none is set.
+ * Version:     1.0.0
+ * Author:      WebDevStudios
+ * Author URI:  http://webdevstudios.com
+ * Donate link: http://webdevstudios.com
+ * License:     GPLv2
+ * Text Domain: wds-default-featured-images
  * Domain Path: /languages
  */
 
